@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_list.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\activity_list.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\grid_item_taller.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\grid_item_taller.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_recyclerview.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\activity_recyclerview.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\contacts_list_item.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\contacts_list_item.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\grid_item.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\grid_item.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_grid.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\activity_grid.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_contacts__list_view.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\activity_contacts__list_view.xml"
+    },
+    {
+        "merged": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\build\\intermediates\\res\\merged\\debug\\layout\\item.xml",
+        "source": "E:\\hufeilong\\AndroidStudioProjects\\MyApplication1\\Test_JazzyListView\\sample\\src\\main\\res\\layout\\item.xml"
+    }
+]

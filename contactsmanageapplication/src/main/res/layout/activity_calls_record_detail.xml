@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ddd"
+    tools:context=".activity.CallsRecordDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#404040"
+        >
+    <TextView
+        android:id="@+id/tv_recorddetail_phonenum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="188 1234 5678 / 某某某"
+        android:textSize="25sp"
+        android:textColor="#EEE"
+        android:layout_margin="10dp"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#DDD"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_recorddeatail_pic"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="#f88"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/bt_find"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:text="查看联系人"
+                android:textColor="#606060"
+                android:textSize="20sp"
+                />
+            <Button
+                android:id="@+id/bt_update"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:text="更新联系人"
+                android:textColor="#606060"
+                android:textSize="20sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            >
+        <ImageButton
+            android:id="@+id/ib_call"
+        android:layout_width="50dp"
+        android:layout_height="68dp"
+            android:background="@drawable/call"
+           />
+            </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.77"
+            android:layout_height="67dp"
+            android:textColor="#707070"
+            android:gravity="center"
+            android:text="|"
+            android:textSize="50sp"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/ib_message"
+            android:layout_width="50dp"
+            android:layout_height="68dp"
+            android:background="@drawable/message"
+            />
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:background="#aaa"
+        >
+
+        <TextView
+            android:id="@+id/tv_calls_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="今天"
+            android:textStyle="bold"
+            android:textColor="#606060"
+            android:textSize="25sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_type"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/type_in"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="AM 12:05"
+                android:textSize="25sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/tv_mDateDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="01:12:05"
+                android:textSize="25sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/tv_mCostTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:background="#999"
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+
+</LinearLayout>

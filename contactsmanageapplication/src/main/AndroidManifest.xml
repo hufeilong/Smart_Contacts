@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lol.contactsmanageapplication">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.ContactsListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CallsRecordActivity"
+            android:label="@string/title_activity_calls_record" />
+        <activity
+            android:name=".activity.HoneyDegreeListActivity"
+            android:label="@string/title_activity_honey_degree_list" />
+        <activity
+            android:name=".activity.CallsRecordDetailActivity"
+            android:label="@string/title_activity_calls_record_detail"></activity>
+    </application>
+
+</manifest>

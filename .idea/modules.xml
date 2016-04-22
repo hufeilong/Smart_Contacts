@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Test_JazzyListView.iml" filepath="$PROJECT_DIR$/Test_JazzyListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contactsmanageapplication/contactsmanageapplication.iml" filepath="$PROJECT_DIR$/contactsmanageapplication/contactsmanageapplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jazzylistlibrary/jazzylistlibrary.iml" filepath="$PROJECT_DIR$/jazzylistlibrary/jazzylistlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-recyclerview/library-recyclerview.iml" filepath="$PROJECT_DIR$/library-recyclerview/library-recyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+    </modules>
+  </component>
+</project>

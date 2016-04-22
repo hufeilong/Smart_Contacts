@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">ContactsManageApplication</string>
+
+
+    <string name="standard">Standard</string>
+    <string name="listview_example">ListView Example</string>
+    <string name="gridview_example">GridView Example</string>
+    <string name="recyclerview_list_example">RecyclerView List Example</string>
+    <string name="recyclerview_grid_example">RecyclerView Grid Example</string>
+    <string name="recyclerview_staggered_grid_example">RecyclerView Staggered Grid Example</string>
+
+    <string-array name="jazzy_effects">
+        <item>@string/standard</item>
+        <item>Grow</item>
+        <item>Cards</item>
+        <item>Curl</item>
+        <item>Wave</item>
+        <item>Flip</item>
+        <item>Fly</item>
+        <item>ReverseFly</item>
+        <item>Helix</item>
+        <item>Fan</item>
+        <item>Tilt</item>
+        <item>Zipper</item>
+        <item>Fade</item>
+        <item>Twirl</item>
+        <item>SlideIn</item>
+    </string-array>
+    <string name="title_activity_calls_record">通话记录</string>
+    <string name="title_activity_honey_degree_list">HoneyDegreeListActivity</string>
+    <string name="title_activity_calls_record_detail">CallsRecordDetailActivity</string>
+</resources>
