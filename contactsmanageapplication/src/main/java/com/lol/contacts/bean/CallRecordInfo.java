@@ -1,6 +1,4 @@
-package com.lol.contactsmanageapplication.bean;
-
-import android.graphics.Bitmap;
+package com.lol.contacts.bean;
 
 import java.io.Serializable;
 
@@ -8,6 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2016/4/20.
  */
 public class CallRecordInfo implements Serializable{
+
     private int mId;
     private String mName; // 名称
     private String mNumber; // 号码
@@ -16,14 +15,10 @@ public class CallRecordInfo implements Serializable{
     String mDetailDate;
     String mTimeDuration;
     String mPhotoId;
-    Bitmap mContactIcon;
+    //Bitmap mContactIcon;
 
-    public Bitmap getmContactIcon() {
-        return mContactIcon;
-    }
-
-    public void setmContactIcon(Bitmap mContactIcon) {
-        this.mContactIcon = mContactIcon;
+    public CallRecordInfo(String mName) {
+        this.mName = mName;
     }
 
     public int getmType() {
@@ -45,7 +40,7 @@ public class CallRecordInfo implements Serializable{
                 ", mDetailDate='" + mDetailDate + '\'' +
                 ", mTimeDuration='" + mTimeDuration + '\'' +
                 ", mPhotoId='" + mPhotoId + '\'' +
-                ", mContactIcon=" + mContactIcon +
+
                 '}';
     }
 
@@ -105,12 +100,8 @@ public class CallRecordInfo implements Serializable{
         this.mPhotoId = mPhotoId;
     }
 
-    public CallRecordInfo(String Name) {
-        this.mName = Name;
-    }
     public CallRecordInfo() {
+
     }
-
-
 }
 
