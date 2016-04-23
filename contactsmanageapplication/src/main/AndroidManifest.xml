@@ -3,6 +3,7 @@
     package="com.lol.contactsmanageapplication">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +25,10 @@
             android:label="@string/title_activity_honey_degree_list" />
         <activity
             android:name=".activity.CallsRecordDetailActivity"
-            android:label="@string/title_activity_calls_record_detail"></activity>
+            android:label="@string/title_activity_calls_record_detail" />
+        <activity
+            android:name=".activity.ContactsModifyActivity"
+            android:label="@string/title_activity_contacts_modify"></activity>
     </application>
 
 </manifest>

@@ -33,9 +33,12 @@ public class ContactsModifyActivity extends ActionBarActivity {
         email = (EditText) findViewById(R.id.et_email);
         love = (EditText) findViewById(R.id.et_love);
         address = (EditText) findViewById(R.id.et_address );
-        //获得从联系人详情页面传过来的详细数据
+        //获得从联系人详情页面传过来的联系人ID，然后由ID向数据库请求详细数据
         Intent intent = getIntent();
-        info = (ContactDetailInfo) intent.getSerializableExtra("modify");
+        String contact_id = intent.getStringExtra("mContact_id");
+        String rawContact_id = intent.getStringExtra("mRawContact_id");
+        // ContactsDao dao = new ContactsDao(ContactsModifyActivity.this);
+       // info = dao.getContactMessage(ContactsModifyActivity.this, contact_id, rawContact_id);
         //加载布局(姓名、手机、邮箱、亲密值、地址)
         name.setText(info.getmDisplay_name());
         phonenum.setText(info.getmPhone_number());

@@ -1,6 +1,7 @@
 package com.lol.contactsmanageapplication.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.lol.contactsmanageapplication.R;
 import com.lol.contactsmanageapplication.Utils;
+import com.lol.contactsmanageapplication.bean.CallRecordInfo;
 import com.lol.contactsmanageapplication.bean.ContactListItemInfo;
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
@@ -41,6 +44,21 @@ public class ContactsListActivity extends ActionBarActivity {
         initData();//从数据库请求数据并进行二次处理
         mList.setAdapter(new JazzylvAdapter(this));//为JazzyListView设置适配器
 
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //对listview进行点击监听，点击行不是分割栏时跳转到对应联系人详情页
+            //携带数据Contact_id、mRawContact_id  ；方便详情页调用数据库方法获取数据
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mPerson.get(position).getmContact_id() != "split"){
+                    String Contact_id = mPerson.get(position).getmContact_id();
+                    String mRawContact_id = mPerson.get(position).getmRawContact_id();
+                    Intent intent = new Intent(ContactsListActivity.this,DetailActivity.class);
+                    intent.putExtra("ContactId",Contact_id);
+                    intent.putExtra("RawContactId",mRawContact_id);
+                    startActivity(intent);
+                }
+            }
+        });
 
         if (savedInstanceState != null) {//这里用于重新加载动画效果设置
             mCurrentTransitionEffect = savedInstanceState.getInt(KEY_TRANSITION_EFFECT, JazzyHelper.ZIPPER);

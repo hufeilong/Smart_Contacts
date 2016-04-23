@@ -48,6 +48,7 @@ public class CallsRecordActivity extends ActionBarActivity {
         }
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //对listview进行点击监听，点击行不是分割栏时跳转到对应通话记录详情页
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(mPerson.get(position).getmName() != "split"){

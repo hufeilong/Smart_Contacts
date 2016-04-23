@@ -29,4 +29,5 @@
     <string name="title_activity_calls_record">通话记录</string>
     <string name="title_activity_honey_degree_list">HoneyDegreeListActivity</string>
     <string name="title_activity_calls_record_detail">CallsRecordDetailActivity</string>
+    <string name="title_activity_contacts_modify">ContactsModifyActivity</string>
 </resources>

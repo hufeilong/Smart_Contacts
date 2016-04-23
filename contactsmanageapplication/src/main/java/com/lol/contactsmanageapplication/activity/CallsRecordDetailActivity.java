@@ -77,7 +77,7 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
                 //跳转到信息编辑界面
                 Intent intentMsm = new Intent(Intent.ACTION_VIEW);
                 intentMsm.setType("vnd.android-dir/mms-sms");
-                intentMsm.setData(Uri.parse("content://mms-sms/conversations/"+recordInfo.getmNumber()));//此为号码
+                intentMsm.setData(Uri.parse("content://mms-sms/conversations/" + recordInfo.getmNumber()));//此为号码
                 startActivity(intentMsm);
 
             }
@@ -87,6 +87,10 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //跳转到该联系人详情页面
+//                Intent personDetailIntent = new Intent(CallsRecordDetailActivity.this, DetailActivity.class);
+//                personDetailIntent.putExtra("ContactId",ContactId);
+//                personDetailIntent.putExtra("ContactId",RawContactId);
+//                startActivity(personDetailIntent);
             }
         });
 
@@ -94,6 +98,10 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //跳转到该联系人修改界面
+//                Intent personModifyIntent = new Intent(CallsRecordDetailActivity.this, ContactsModifyActivity.class);
+//                personModifyIntent.putExtra("ContactId",ContactId);
+//                personModifyIntent.putExtra("ContactId",RawContactId);
+//                startActivity(personModifyIntent);
             }
         });
     }

@@ -29,7 +29,7 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
     private JazzyListView mList;//JazzyListView
     private Map<String, Integer> mEffectMap;//存储代表动画效果种类的字符串和整型常量
     private int mCurrentTransitionEffect = JazzyHelper.ZIPPER;//当前动画效果
-    private ArrayList<HoneyContactInfo> mContactsPerson;//存储联系人对象的集合
+//    private ArrayList<HoneyContactInfo> mContactsPerson;//存储联系人对象的集合
 
 
     @Override
@@ -48,8 +48,8 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
 
     /*请求数据库得到数据*/
     private void initData(){
-        HoneyDegreeDao dao = new HoneyDegreeDao(HoneyDegreeListActivity.this);
-        mContactsPerson = dao.getContactOrderByScore();
+//        HoneyDegreeDao dao = new HoneyDegreeDao(HoneyDegreeListActivity.this);
+//        mContactsPerson = dao.getContactOrderByScore();
         //得到存储数据的动态数组
     }
 
