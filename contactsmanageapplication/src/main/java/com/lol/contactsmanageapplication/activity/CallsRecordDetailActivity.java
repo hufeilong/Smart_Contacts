@@ -98,7 +98,7 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //跳转到该联系人修改界面
-//                Intent personModifyIntent = new Intent(CallsRecordDetailActivity.this, ContactsModifyActivity.class);
+//                Intent personModifyIntent = new Intent(CallsRecordDetailActivity.this, ModifyActivity.class);
 //                personModifyIntent.putExtra("ContactId",ContactId);
 //                personModifyIntent.putExtra("ContactId",RawContactId);
 //                startActivity(personModifyIntent);

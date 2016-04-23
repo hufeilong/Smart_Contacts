@@ -3,6 +3,8 @@ package com.lol.contactsmanageapplication.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,7 +23,7 @@ import com.lol.contactsmanageapplication.clipCircleImage.ClipHeaderActivity;
 
 import java.io.File;
 
-public class ContactsModifyActivity extends ActionBarActivity {
+public class ModifyActivity extends ActionBarActivity {
 
     //圆形头像开源部分自带
     private static final int RESULT_CAPTURE = 100;
@@ -39,6 +41,7 @@ public class ContactsModifyActivity extends ActionBarActivity {
     private ContactDetailInfo info;
     private Button back;
     private Button save;
+    private Uri picUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +74,8 @@ public class ContactsModifyActivity extends ActionBarActivity {
             public void onClick(View v) {
                 //点击保存修改结果到数据库
                 updateInfo();
-//                ContactsDao dao = new ContactsDao(ContactsModifyActivity.this);
-//                dao.updateContact(ContactsModifyActivity.this,info);
+//                ContactsDao dao = new ContactsDao(ModifyActivity.this);
+//                dao.updateContact(ModifyActivity.this,info);
                 //保存完成之后返回联系人详情页，展示修改后的新详情
                 finish();
             }
@@ -96,8 +99,8 @@ public class ContactsModifyActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String contact_id = intent.getStringExtra("mContact_id");
         String rawContact_id = intent.getStringExtra("mRawContact_id");
-        // ContactsDao dao = new ContactsDao(ContactsModifyActivity.this);
-        // info = dao.getContactMessage(ContactsModifyActivity.this, contact_id, rawContact_id);
+        // ContactsDao dao = new ContactsDao(ModifyActivity.this);
+        // info = dao.getContactMessage(ModifyActivity.this, contact_id, rawContact_id);
         //加载布局(姓名、手机、邮箱、亲密值、地址)
         name.setText(info.getmDisplay_name());
         phonenum.setText(info.getmPhone_number());
@@ -151,7 +154,6 @@ public class ContactsModifyActivity extends ActionBarActivity {
                 break;
             case CROP_PHOTO://截图后回传，将回传的图片显示到控件上
                 if (resultCode == RESULT_OK) {
-
                     if (intent != null) {
                         setPicToView(intent);
                     }
@@ -196,7 +198,7 @@ public class ContactsModifyActivity extends ActionBarActivity {
         Intent intent = new Intent();
         intent.setClass(this, ClipHeaderActivity.class);
         intent.setData(uri);
-        intent.putExtra("side_length", 200);//裁剪图片宽高
+        intent.putExtra("side_length", 100);//裁剪图片宽高
         startActivityForResult(intent, CROP_PHOTO);//请求码为“截图”，跳转到截图
 
         //调用系统的裁剪
@@ -215,11 +217,11 @@ public class ContactsModifyActivity extends ActionBarActivity {
 
     private void setPicToView(Intent picdata) {
         Uri uri = picdata.getData();//通过最终获得的图片的URI显示到控件上
+        picUri = uri;//獲得截取后圖片
         if (uri == null) {
             return;
         }
         iv_head_icon.setImageURI(uri);
-
     }
 
 
@@ -247,7 +249,23 @@ public class ContactsModifyActivity extends ActionBarActivity {
         info.setmEmail(email.getText().toString());
         info.setmScore(Integer.valueOf(love.getText().toString()));
         info.setmAddress(address.getText().toString());
+        info.setmContact_icon(getBitmapFromUri(picUri));
         return info;
     }
 
+    //将uri转为bitmap对象
+    private Bitmap getBitmapFromUri(Uri uri)
+    {
+        try
+        {
+            // 读取uri所在的图片
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            return bitmap;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

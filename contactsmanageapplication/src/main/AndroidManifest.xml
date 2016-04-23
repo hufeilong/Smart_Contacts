@@ -27,7 +27,7 @@
             android:name=".activity.CallsRecordDetailActivity"
             android:label="@string/title_activity_calls_record_detail" />
         <activity
-            android:name=".activity.ContactsModifyActivity"
+            android:name=".activity.ModifyActivity"
             android:label="@string/title_activity_contacts_modify"></activity>
     </application>
 
