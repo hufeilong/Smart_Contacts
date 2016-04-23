@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lol.contactsmanageapplication.ContactInfo;
+
 import com.lol.contactsmanageapplication.R;
 import com.lol.contactsmanageapplication.Utils;
 import com.twotoasters.jazzylistview.JazzyHelper;

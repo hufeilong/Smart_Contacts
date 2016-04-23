@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- 蓝色按钮，带圆角 -->
+    <style name="BlueWithCorner" >
+        <item name="android:background">@drawable/button_bluecorner_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
