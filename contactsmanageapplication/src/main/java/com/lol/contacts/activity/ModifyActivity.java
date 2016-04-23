@@ -1,10 +1,9 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,9 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.bean.ContactDetailInfo;
-import com.lol.contactsmanageapplication.clipCircleImage.ClipHeaderActivity;
+import com.lol.contacts.R;
+import com.lol.contacts.bean.ContactDetailInfo;
+import com.lol.contacts.clipCircleImage.ClipHeaderActivity;
 
 import java.io.File;
 

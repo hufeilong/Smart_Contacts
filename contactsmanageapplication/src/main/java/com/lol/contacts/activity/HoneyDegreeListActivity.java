@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,8 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.Utils;
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.Dao.HoneyDegreeDao;
+import com.lol.contacts.R;
+import com.lol.contacts.Utils;
+import com.lol.contacts.bean.HoneyContactInfo;
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
@@ -29,7 +32,9 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
     private JazzyListView mList;//JazzyListView
     private Map<String, Integer> mEffectMap;//存储代表动画效果种类的字符串和整型常量
     private int mCurrentTransitionEffect = JazzyHelper.ZIPPER;//当前动画效果
-//    private ArrayList<HoneyContactInfo> mContactsPerson;//存储联系人对象的集合
+    private ArrayList<HoneyContactInfo> mContactsPerson;//存储联系人对象的集合
+    private HoneyDegreeDao honeyDegreeDaodao;
+    private ContactsDao dao;
 
 
     @Override
@@ -48,8 +53,9 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
 
     /*请求数据库得到数据*/
     private void initData(){
-//        HoneyDegreeDao dao = new HoneyDegreeDao(HoneyDegreeListActivity.this);
-//        mContactsPerson = dao.getContactOrderByScore();
+        dao = new ContactsDao(HoneyDegreeListActivity.this);
+        honeyDegreeDaodao = new HoneyDegreeDao(HoneyDegreeListActivity.this);
+        mContactsPerson = (ArrayList<HoneyContactInfo>) honeyDegreeDaodao.getContactOrderByScore();
         //得到存储数据的动态数组
     }
 
@@ -90,15 +96,15 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
                 TextView textView_love = (TextView) view.findViewById(R.id.tv_love_value);
 
             imageView_love.setImageResource(R.drawable.love);//亲密度红心图标
-            if(getItem(position).contact_icon == null) {//设置头像
+            if(dao.getBitmap( getItem(position).getContact_id(),HoneyDegreeListActivity.this ) == null) {//设置头像
                     //没有指定头像时设置为默认头像
                     imageView_person.setImageResource(R.drawable.person_pic);
                 }else{
                     //用户有指定头像时直接设置
-                    imageView_person.setImageBitmap(getItem(position).contact_icon);
+                    imageView_person.setImageBitmap(dao.getBitmap( getItem(position).getContact_id(),HoneyDegreeListActivity.this ));
                 }
-                textView_name.setText(getItem(position).name);//姓名
-                textView_love.setText(getItem(position).score);//亲密度
+                textView_name.setText(getItem(position).getName());//姓名
+                textView_love.setText(getItem(position).getScore());//亲密度
 
             return view;
         }

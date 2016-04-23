@@ -1,24 +1,20 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.telephony.SmsManager;
-import com.lol.contactsmanageapplication.Dao.ContactsDao;
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.bean.ContactDetailInfo;
-import com.lol.contactsmanageapplication.popupwindow.PopupWindowDeleteContact;
+
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.R;
+import com.lol.contacts.bean.ContactDetailInfo;
+import com.lol.contacts.popupwindow.PopupWindowDeleteContact;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 
@@ -36,6 +32,7 @@ public class DetailActivity extends Activity {
     private String contactId;
     private String rawContactId;
     private RoundedImageView iv_head_icon;
+    private ContactDetailInfo contactMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +62,7 @@ public class DetailActivity extends Activity {
 
         //获得该联系人的信息，并展示出来
         ContactsDao contactsDao = new ContactsDao(this);
-        ContactDetailInfo contactMessage = contactsDao.getContactMessage(this, contactId, rawContactId);
+        contactMessage = contactsDao.getContactMessage(this, contactId, rawContactId);
         tv_name.setText(contactMessage.getmDisplay_name());
         tv_address.setText(contactMessage.getmAddress());
         tv_email.setText(contactMessage.getmEmail());

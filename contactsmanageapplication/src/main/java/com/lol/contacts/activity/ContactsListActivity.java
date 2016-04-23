@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.Utils;
-import com.lol.contactsmanageapplication.bean.CallRecordInfo;
-import com.lol.contactsmanageapplication.bean.ContactListItemInfo;
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.R;
+import com.lol.contacts.Utils;
+import com.lol.contacts.bean.ContactListItemInfo;
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
@@ -35,6 +35,7 @@ public class ContactsListActivity extends ActionBarActivity {
     private int mCurrentTransitionEffect = JazzyHelper.ZIPPER;//当前动画效果
     private ArrayList<ContactListItemInfo> mContactsPerson;//存储联系人对象的集合
     private ArrayList<ContactListItemInfo> mPerson;//经处理加入首字母分割线对象的集合
+    private ContactsDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,33 +69,7 @@ public class ContactsListActivity extends ActionBarActivity {
 
 
 
-    /*模拟添加一个得到数据的方法，方便使用*/
-    /*private ArrayList<ContactListItemInfo> initDate(){
 
-        mContactsPerson = new ArrayList<ContactListItemInfo>();
-      *//*为动态数组添加数据*//*
-        for(int i=0;i<100;i++)
-        {
-            //创建测试数据，ID为 i,姓名为我是小 + i，头像均为默认头像
-            ContactListItemInfo contactInfo = new ContactListItemInfo("" + i, "我是小" + i, null);
-            if(i<10){
-                contactInfo.first_letter = "A";
-            }else if(i < 20){
-                contactInfo.first_letter = "B";
-            }else if(i < 30){
-                contactInfo.first_letter = "C";
-            }else if(i < 40){
-                contactInfo.first_letter = "D";
-            }else if(i < 50){
-                contactInfo.first_letter = "H";
-            }else {
-                contactInfo.first_letter = "M";
-            }
-            mContactsPerson.add(contactInfo);
-        }
-        return mContactsPerson;
-        //得到存储数据的动态数组
-    }*/
 
     private void initData(){
         mContactsPerson = initDate();
@@ -105,8 +80,8 @@ public class ContactsListActivity extends ActionBarActivity {
     private ArrayList<ContactListItemInfo> initDate() {
         ArrayList<ContactListItemInfo> infos = new ArrayList<>();
         //从数据库请求数据
-//      ContactsDao dao = new ContactsDao(ContactsListActivity.this);
-//      infos = dao.getAllContacts(ContactsListActivity.this);
+        dao = new ContactsDao(ContactsListActivity.this);
+        infos = (ArrayList<ContactListItemInfo>) dao.getAllContacts(ContactsListActivity.this);
         return infos;
     }
 
@@ -168,10 +143,10 @@ public class ContactsListActivity extends ActionBarActivity {
                     View view = mInflater.inflate(R.layout.contacts_list_item, null);
                     ImageView imageView = (ImageView) view.findViewById(R.id.iv_person_pic);
                     TextView textView = (TextView) view.findViewById(R.id.tv_person_name);
-                    if(getItem(position).getmContact_icon() == null) {
+                    if( dao.getBitmap(getItem(position).getmContact_id(), ContactsListActivity.this) == null) {
                         imageView.setImageResource(R.drawable.person_pic);//数据库中没有保存的头像时设置为默认头像
                     }else{
-                        imageView.setImageBitmap(getItem(position).getmContact_icon());
+                        imageView.setImageBitmap( dao.getBitmap(getItem(position).getmContact_id(), ContactsListActivity.this));
                     }
                     textView.setText(getItem(position).getmName());
                     return view;

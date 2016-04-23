@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.bean.CallRecordInfo;
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.R;
+import com.lol.contacts.bean.CallRecordInfo;
 
 public class CallsRecordDetailActivity extends ActionBarActivity {
 
     private CallRecordInfo recordInfo;
+    private ContactsDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,13 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
         date.setText(recordInfo.getmDate());
         title.setText(recordInfo.getmNumber()+" / "+recordInfo.getmName());
         //加载头像
-        if(recordInfo.getmContactIcon() == null) {
+        dao = new ContactsDao(CallsRecordDetailActivity.this);
+        if(dao.getBitmapByPhotoId(CallsRecordDetailActivity.this,recordInfo.getmPhotoId()) == null) {
             //没有指定头像时设置为默认头像
             person.setImageResource(R.drawable.person_pic);
         }else{
             //用户有指定头像时直接设置
-            person.setImageBitmap(recordInfo.getmContactIcon());
+            person.setImageBitmap(dao.getBitmapByPhotoId(CallsRecordDetailActivity.this,recordInfo.getmPhotoId()));
         }
         //加载通话类型图片
         switch (recordInfo.getmType()){
@@ -75,10 +79,9 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //跳转到信息编辑界面
-                Intent intentMsm = new Intent(Intent.ACTION_VIEW);
-                intentMsm.setType("vnd.android-dir/mms-sms");
-                intentMsm.setData(Uri.parse("content://mms-sms/conversations/" + recordInfo.getmNumber()));//此为号码
-                startActivity(intentMsm);
+                Uri smsToUri = Uri.parse("smsto:"+recordInfo.getmNumber());
+                Intent mIntent = new Intent( android.content.Intent.ACTION_SENDTO, smsToUri );
+                startActivity( mIntent );
 
             }
         });
@@ -91,6 +94,7 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
 //                personDetailIntent.putExtra("ContactId",ContactId);
 //                personDetailIntent.putExtra("ContactId",RawContactId);
 //                startActivity(personDetailIntent);
+                Toast.makeText(CallsRecordDetailActivity.this,"受到外星人干扰，跳转失败！+。+",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -102,6 +106,7 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
 //                personModifyIntent.putExtra("ContactId",ContactId);
 //                personModifyIntent.putExtra("ContactId",RawContactId);
 //                startActivity(personModifyIntent);
+                Toast.makeText(CallsRecordDetailActivity.this,"受到外星人干扰，跳转失败！+。+",Toast.LENGTH_SHORT).show();
             }
         });
     }

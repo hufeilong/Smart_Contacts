@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.activity;
+package com.lol.contacts.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.Utils;
-import com.lol.contactsmanageapplication.bean.CallRecordInfo;
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.R;
+import com.lol.contacts.Utils;
+import com.lol.contacts.bean.CallRecordInfo;
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
@@ -33,6 +34,7 @@ public class CallsRecordActivity extends ActionBarActivity {
     private int mCurrentTransitionEffect = JazzyHelper.ZIPPER;//当前动画效果
     private ArrayList<CallRecordInfo> mContactsPerson;//存储联系人对象的集合
     private ArrayList<CallRecordInfo> mPerson;//经处理加入时间分割线对象的集合
+    private ContactsDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +72,11 @@ public class CallsRecordActivity extends ActionBarActivity {
     /*从数据库请求获得数据，方便使用，避免反复请求数据库*/
     private ArrayList<CallRecordInfo> initDate(){
 
-        ArrayList<CallRecordInfo> infos = new ArrayList<>();
+        ArrayList<CallRecordInfo> infos = new ArrayList<CallRecordInfo>();
 
         //从数据库请求数据
-//      ContactsDao dao = new ContactsDao(CallsRecordActivity.this);
-//      infos = dao.getCallLogMessage(CallsRecordActivity.this);
+        dao = new ContactsDao(CallsRecordActivity.this);
+        infos = (ArrayList<CallRecordInfo>) dao.getCallLogMessage(CallsRecordActivity.this);
 
         return infos;
     }
@@ -136,12 +138,12 @@ public class CallsRecordActivity extends ActionBarActivity {
                 TextView textView_name = (TextView) view.findViewById(R.id.tv_record_name);
                 TextView textView_phonenum = (TextView) view.findViewById(R.id.tv_record_phonenum);
                 TextView textView_time = (TextView) view.findViewById(R.id.tv_record_time);
-                if(getItem(position).getmContactIcon() == null) {
+                if(dao.getBitmapByPhotoId(CallsRecordActivity.this,getItem(position).getmPhotoId()) == null) {
                     //没有指定头像时设置为默认头像
                     imageView_person.setImageResource(R.drawable.person_pic);
                 }else{
-                    //用户有指定头像时直接设置
-                    imageView_person.setImageBitmap(getItem(position).getmContactIcon());
+                    //用户有指定头像时直接设置 String mPhotoId
+                    imageView_person.setImageBitmap(dao.getBitmapByPhotoId(CallsRecordActivity.this,getItem(position).getmPhotoId()));
                 }
                 textView_name.setText(getItem(position).getmName());
                 textView_phonenum.setText(getItem(position).getmNumber());
