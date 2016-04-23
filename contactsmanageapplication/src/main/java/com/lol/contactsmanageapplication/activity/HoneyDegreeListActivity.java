@@ -29,31 +29,30 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
     private JazzyListView mList;//JazzyListView
     private Map<String, Integer> mEffectMap;//存储代表动画效果种类的字符串和整型常量
     private int mCurrentTransitionEffect = JazzyHelper.ZIPPER;//当前动画效果
-    private ArrayList<ContactInfo> mContactsPerson;//存储联系人对象的集合
+    private ArrayList<HoneyContactInfo> mContactsPerson;//存储联系人对象的集合
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_honey_degree_list);
-        mList = (JazzyListView) findViewById(R.id.lv_calls);//通过空间id查找到JazzyListView
-        // mList.setAdapter(new JazzylvAdapter(this));//为JazzyListView设置适配器
 
         if (savedInstanceState != null) {//这里用于重新加载动画效果设置
             mCurrentTransitionEffect = savedInstanceState.getInt(KEY_TRANSITION_EFFECT, JazzyHelper.ZIPPER);
             setupJazziness(mCurrentTransitionEffect);
         }
+        mList = (JazzyListView) findViewById(R.id.lv_calls);//通过空间id查找到JazzyListView
+        initData();
+        mList.setAdapter(new JazzylvAdapter(this));//为JazzyListView设置适配器
     }
 
-    /*模拟添加一个得到数据的方法，方便使用*/
-    private ArrayList<ContactInfo> initDate(){
-
-        mContactsPerson = new ArrayList<ContactInfo>();
-      /*为动态数组添加数据*/
-
-        return mContactsPerson;
+    /*请求数据库得到数据*/
+    private void initData(){
+        HoneyDegreeDao dao = new HoneyDegreeDao(HoneyDegreeListActivity.this);
+        mContactsPerson = dao.getContactOrderByScore();
         //得到存储数据的动态数组
     }
+
 
 
 
@@ -67,12 +66,12 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return initDate().size();
+            return mContactsPerson.size();
         }
 
         @Override
-        public ContactInfo getItem(int position) {
-            return initDate().get(position);
+        public HoneyContactInfo getItem(int position) {
+            return mContactsPerson.get(position);
         }
 
         @Override
@@ -90,20 +89,18 @@ public class HoneyDegreeListActivity extends ActionBarActivity {
                 TextView textView_name = (TextView) view.findViewById(R.id.tv_honey_name);
                 TextView textView_love = (TextView) view.findViewById(R.id.tv_love_value);
 
-            imageView_love.setImageResource(R.drawable.love);
-            if(initDate().get(position).contact_icon == null) {
+            imageView_love.setImageResource(R.drawable.love);//亲密度红心图标
+            if(getItem(position).contact_icon == null) {//设置头像
                     //没有指定头像时设置为默认头像
                     imageView_person.setImageResource(R.drawable.person_pic);
                 }else{
                     //用户有指定头像时直接设置
-                    imageView_person.setImageBitmap(initDate().get(position).contact_icon);
+                    imageView_person.setImageBitmap(getItem(position).contact_icon);
                 }
-                textView_name.setText(initDate().get(position).display_name);
-            textView_love.setText(initDate().get(position).love);
+                textView_name.setText(getItem(position).name);//姓名
+                textView_love.setText(getItem(position).score);//亲密度
 
             return view;
-
-
         }
     }
 
