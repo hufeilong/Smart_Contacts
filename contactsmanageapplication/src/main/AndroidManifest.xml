@@ -32,12 +32,14 @@
 
         <activity android:name=".activity.DetailActivity"/>
         <activity android:name=".activity.AddContactActivity"/>
+        <activity android:name=".clipCircleImage.ClipHeaderActivity"/>
         <activity
             android:name=".activity.CallsRecordDetailActivity"
             android:label="@string/title_activity_calls_record_detail" />
         <activity
             android:name=".activity.ModifyActivity"
             android:label="@string/title_activity_contacts_modify"></activity>
+
     </application>
 
 </manifest>
