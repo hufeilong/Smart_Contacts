@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.ContactsListActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#0099CC"
+        >
+        <Button
+            android:id="@+id/bt_record"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:text="通话记录"
+            android:textSize="20sp"
+            android:textColor="#EEE"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            android:text="通讯录"
+            />
+
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:text="添加"
+            android:textSize="20sp"
+            android:textColor="#EEE"
+            />
+    </RelativeLayout>
     <com.twotoasters.jazzylistview.JazzyListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
@@ -14,4 +55,4 @@
         app:only_animate_new_items="false"
         app:only_animate_fling="false"
         app:max_velocity="0" />
-</RelativeLayout>
+</LinearLayout>

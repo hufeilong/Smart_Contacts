@@ -13,7 +13,6 @@
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="10dp"
-        android:background="#f77"
         app:riv_oval="true"
         />
     <TextView
@@ -22,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textSize="25sp"
-        android:textColor="#D4D4D4"
+        android:textColor="#fff"
         />
 </LinearLayout>

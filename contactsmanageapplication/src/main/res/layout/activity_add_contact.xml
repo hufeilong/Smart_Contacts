@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lol.contacts.activity.AddContactActivity">
+    tools:context=".activity.AddContactActivity">
 
     <LinearLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="#00bbd2"
         android:gravity="center"
 
@@ -26,19 +26,19 @@
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:gravity="left"
-            android:paddingLeft="20dp"
+           android:padding="10dp"
             android:text="返回"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:textColor="#fff"
+            android:textSize="20sp" />
         <!-- 取消button自带阴影效果-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:text="新增联系人"
-            android:textColor="#000"
+            android:textColor="#fff"
 
-            android:textSize="17sp" />
+            android:textSize="27sp" />
 
         <Button
             android:id="@+id/btn_Detailcontact_modify"
@@ -46,14 +46,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:gravity="right"
-            android:paddingRight="20dp"
             android:text="保存"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:padding="10dp"
+            android:textColor="#fff"
+            android:textSize="20sp" />
         <!-- 取消button自带阴影效果-->
 
     </LinearLayout>
@@ -84,8 +83,6 @@
                 android:id="@+id/iv_head_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/default_logo"
                 riv_oval="true"
                 />
         </LinearLayout>
@@ -263,7 +260,7 @@
                     android:layout_marginRight="13dp"
                     android:id="@+id/et_loveScore"
                     android:background="#0000"
-                    android:hint="请输入0—100整数"
+                    android:text="60"
                     />
                 <TextView
                     android:layout_width="match_parent"
