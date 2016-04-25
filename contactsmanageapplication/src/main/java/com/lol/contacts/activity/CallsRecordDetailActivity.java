@@ -1,5 +1,6 @@
 package com.lol.contacts.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.lol.contacts.Dao.ContactsDao;
 import com.lol.contacts.R;
 import com.lol.contacts.bean.CallRecordInfo;
 
-public class CallsRecordDetailActivity extends ActionBarActivity {
+public class CallsRecordDetailActivity extends Activity {
 
     private CallRecordInfo recordInfo;
     private ContactsDao dao;
@@ -30,7 +31,7 @@ public class CallsRecordDetailActivity extends ActionBarActivity {
         Button update = (Button) findViewById(R.id.bt_update);//“更新联系人”按钮
         TextView time = (TextView) findViewById(R.id.tv_mDateDetail);//通话结束时间
         TextView costtime = (TextView) findViewById(R.id.tv_mCostTime);//通话耗时
-        TextView title = (TextView) findViewById(R.id.tv_record_phonenum);//标题栏显示：手机号码+姓名
+        TextView title = (TextView) findViewById(R.id.tv_recorddetail_phonenum);//标题栏显示：手机号码+姓名
         TextView date = (TextView) findViewById(R.id.tv_calls_date);//通话日期
         ImageView person = (ImageView) findViewById(R.id.iv_recorddeatail_pic);//联系人头像
         ImageView type = (ImageView) findViewById(R.id.iv_type);//通话类型

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,46 +34,39 @@ public class DetailActivity extends Activity {
     private String rawContactId;
     private RoundedImageView iv_head_icon;
     private ContactDetailInfo contactMessage;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        tv_name = (TextView) findViewById(R.id.tv_name);
-        tv_phone = (TextView) findViewById(R.id.tv_phonenum);
-        tv_email = (TextView) findViewById(R.id.tv_email);
-        ll_love = (TextView) findViewById(R.id.ll_love);
-        tv_address = (TextView) findViewById(R.id.tv_address);
-        iv_head_icon = (RoundedImageView) findViewById(R.id.iv_head_icon);
-
-
-        initView();
-        initdata();
-
-        /**
-         * 从通讯录列表页转到单个联系人的详情页面
-         * 详情界面(DetailActivity)要从列表页面Activity中获得ContactId、RawContactId。
-         *
-         */
-        Intent intent = getIntent();
+        intent = getIntent();
         contactId = intent.getStringExtra("ContactId");
         rawContactId = intent.getStringExtra("RawContactId");
+        initView();
+        initdata(contactId, rawContactId);
+        Log.d("初始ID", contactId);
+        Log.d("初始ID", rawContactId);
+    }
 
-
+    /**
+     * 从通讯录列表页转到单个联系人的详情页面
+     * 详情界面(DetailActivity)要从列表页面Activity中获得ContactId、RawContactId。
+     *
+     */
+    private void initdata(String id,String rawid) {
         //获得该联系人的信息，并展示出来
         ContactsDao contactsDao = new ContactsDao(this);
-        contactMessage = contactsDao.getContactMessage(this, contactId, rawContactId);
+        contactMessage = contactsDao.getContactMessage(this, id, rawid);
+        Log.d("initdata（）显示界面数据，ID",id);
+        Log.d("initdata（）显示界面数据，ID",rawid);
         tv_name.setText(contactMessage.getmDisplay_name());
         tv_address.setText(contactMessage.getmAddress());
         tv_email.setText(contactMessage.getmEmail());
         tv_phone.setText(contactMessage.getmPhone_number());
-        ll_love.setText(contactMessage.getmScore());
+        ll_love.setText( (new Integer(contactMessage.getmScore()).toString()));
+        Log.d("love~~~~~~~", (new Integer(contactMessage.getmScore()).toString()));
         iv_head_icon.setImageBitmap(contactMessage.getmContact_icon());
-
-    }
-
-    private void initdata() {
     }
 
 
@@ -83,6 +77,12 @@ public class DetailActivity extends Activity {
      *
      */
     private void initView() {
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_phone = (TextView) findViewById(R.id.tv_phonenum);
+        tv_email = (TextView) findViewById(R.id.tv_email);
+        ll_love = (TextView) findViewById(R.id.ll_love);
+        tv_address = (TextView) findViewById(R.id.tv_address);
+        iv_head_icon = (RoundedImageView) findViewById(R.id.iv_head_icon);
 
         btn_modify = (Button)findViewById(R.id.btn_Detailcontact_modify);
         btn_delete = (Button)findViewById(R.id.btn_delete);
@@ -97,12 +97,15 @@ public class DetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, ModifyActivity.class);
-                intent.putExtra("mContact_id", contactId);
-                intent.putExtra("mRawContact_id", rawContactId);
+                intent.putExtra("mContact_id",contactId);
+                intent.putExtra("mRawContact_id",rawContactId);
                 startActivity(intent);
+               finish();
             }
         });
     }
+
+
     //点击弹出删除窗口
     public void show_delete_popupWindow(){
 

@@ -1,7 +1,6 @@
-package com.lol.contactsmanageapplication.clipCircleImage;
+package com.lol.contacts.clipCircleImage;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,12 +8,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Xfermode;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.lol.contactsmanageapplication.R;
 
 /**
  * TODO: document your custom view class.

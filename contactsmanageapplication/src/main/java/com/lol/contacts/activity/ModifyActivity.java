@@ -1,5 +1,6 @@
 package com.lol.contacts.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,19 +11,21 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.lol.contacts.Dao.ContactsDao;
 import com.lol.contacts.R;
 import com.lol.contacts.bean.ContactDetailInfo;
 import com.lol.contacts.clipCircleImage.ClipHeaderActivity;
 
 import java.io.File;
 
-public class ModifyActivity extends ActionBarActivity {
+public class ModifyActivity extends Activity {
 
     //圆形头像开源部分自带
     private static final int RESULT_CAPTURE = 100;
@@ -73,9 +76,14 @@ public class ModifyActivity extends ActionBarActivity {
             public void onClick(View v) {
                 //点击保存修改结果到数据库
                 updateInfo();
-//                ContactsDao dao = new ContactsDao(ModifyActivity.this);
-//                dao.updateContact(ModifyActivity.this,info);
+                ContactsDao dao = new ContactsDao(ModifyActivity.this);
+                dao.updateContact(ModifyActivity.this,info);
+                Log.d("new_love",String.valueOf( info.getmScore()));
                 //保存完成之后返回联系人详情页，展示修改后的新详情
+                Intent intent = new Intent(ModifyActivity.this,DetailActivity.class);
+                intent.putExtra("ContactId",info.getmContact_id());
+                intent.putExtra("RawContactId",info.getmRawContact_id());
+                startActivity(intent);
                 finish();
             }
         });
@@ -98,13 +106,13 @@ public class ModifyActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String contact_id = intent.getStringExtra("mContact_id");
         String rawContact_id = intent.getStringExtra("mRawContact_id");
-        // ContactsDao dao = new ContactsDao(ModifyActivity.this);
-        // info = dao.getContactMessage(ModifyActivity.this, contact_id, rawContact_id);
+         ContactsDao dao = new ContactsDao(ModifyActivity.this);
+         info = dao.getContactMessage(ModifyActivity.this, contact_id, rawContact_id);
         //加载布局(姓名、手机、邮箱、亲密值、地址)
         name.setText(info.getmDisplay_name());
         phonenum.setText(info.getmPhone_number());
         email.setText(info.getmEmail());
-        love.setText(info.getmScore());
+        love.setText(String.valueOf(info.getmScore()));
         address.setText(info.getmAddress());
         //加载头像
         if(info.getmContact_icon() == null) {

@@ -1,6 +1,5 @@
 package com.lol.contacts.Dao;
 
-
 import android.Manifest;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
@@ -33,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 /**
  * 提供的接口如下：
@@ -75,7 +73,7 @@ public class ContactsDao {
      */
     public List<CallRecordInfo> getCallLogMessage(Context context) {
 
-        Uri uri = android.provider.CallLog.Calls.CONTENT_URI;
+        Uri uri = CallLog.Calls.CONTENT_URI;
 
         ArrayList<CallRecordInfo> list_callLog = new ArrayList<>();
 
@@ -92,7 +90,7 @@ public class ContactsDao {
                 CallLog.Calls.CACHED_PHOTO_ID
         };
 
-/*        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+       /* if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -112,6 +110,7 @@ public class ContactsDao {
             CallRecordInfo callRecordInfo = new CallRecordInfo();
 
             Date date_ = new Date(query.getLong(query.getColumnIndex(CallLog.Calls.DATE)));
+
             String date = sdf.format(date_);
             callRecordInfo.setmDate(date);
 
@@ -119,10 +118,15 @@ public class ContactsDao {
             callRecordInfo.setmNumber(number);
 
             String name = query.getString(query.getColumnIndex(CallLog.Calls.CACHED_NAME));
-            if (name == null || name!="") {
+
+            if (name == null || name=="") {
                 callRecordInfo.setmName(number);
+
+                System.out.println("没有名字，设置为号码");
             } else {
                 callRecordInfo.setmName(name);
+                System.out.println("有名字，设置为名字");
+
             }
 
             int type = query.getInt(query.getColumnIndex(CallLog.Calls.TYPE));
@@ -140,7 +144,11 @@ public class ContactsDao {
 
             String photo_id = query.getString(query.getColumnIndex(CallLog.Calls.CACHED_PHOTO_ID));
             callRecordInfo.setmPhotoId(photo_id);
+
+
+            list_callLog.add(callRecordInfo);
         }
+        query.close();
         return list_callLog;
     }
     /**
@@ -237,19 +245,20 @@ public class ContactsDao {
                 .build()
         );
         //bitmap
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image_icon.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        opt.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                .withValue(ContactsContract.Data.MIMETYPE, MIMETYPE_PHOTO)
-                .withValue(ContactsContract.Contacts.Photo.PHOTO, bytes)
-                .withValue(ContactsContract.Data.IS_PRIMARY, "1")
-                .withValue(ContactsContract.Data.IS_SUPER_PRIMARY, "1")
-                .withValue(ContactsContract.Data.DATA14, "1")
-                .build()
-        );
-
+        if(image_icon!=null){
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            image_icon.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            opt.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE, MIMETYPE_PHOTO)
+                    .withValue(ContactsContract.Contacts.Photo.PHOTO, bytes)
+                    .withValue(ContactsContract.Data.IS_PRIMARY, "1")
+                    .withValue(ContactsContract.Data.IS_SUPER_PRIMARY, "1")
+                    .withValue(ContactsContract.Data.DATA14, "1")
+                    .build()
+            );
+        }
         try {
             contentResolver.applyBatch(ContactsContract.AUTHORITY, opt);
         } catch (RemoteException e) {
@@ -282,6 +291,7 @@ public class ContactsDao {
         mHoneyDegreeDb.update(HONEY_TABLE,values,HA_COLUMN_CONTACTID+"=?",new String[]{contact_id});
 
         ContentResolver contentResolver = context.getContentResolver();
+
         //这里的opt是数据据的batch操作
         ArrayList<ContentProviderOperation> opt = new ArrayList<>();
 
@@ -322,7 +332,7 @@ public class ContactsDao {
         }
         if (bitmap != null) {
             //将bitmap转化为字节
-            //System.out.println("进入bitmap=======");
+            System.out.println("进入bitmap=======");
 
             final ByteArrayOutputStream os = new ByteArrayOutputStream();
             // 将Bitmap压缩成PNG编码，质量为100%存储
@@ -330,12 +340,14 @@ public class ContactsDao {
             byte[] image_byte = os.toByteArray();
 
             //System.out.println(image_byte.toString() + "-------------------------");
-
-            opt.add(ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
+           /* opt.add(ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
                     .withSelection(ContactsContract.Data.RAW_CONTACT_ID + "=? AND " + ContactsContract.Data.MIMETYPE + "=?",
                             new String[]{rawContact_id, MIMETYPE_PHOTO})
                     .withValue(ContactsContract.Contacts.Photo.PHOTO, image_byte)
-                    .build());
+                   // .withValue(ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Photo.EXTRA_ADDRESS_BOOK_INDEX)
+                    .withValue(ContactsContract.CommonDataKinds.Photo.PHOTO_FILE_ID,ContactsContract.CommonDataKinds.Photo.EXTRA_ADDRESS_BOOK_INDEX)
+                    .build());*/
+            setContactPhoto(contentResolver,image_byte,Integer.valueOf(rawContact_id));
         }
         try {
             contentResolver.applyBatch(ContactsContract.AUTHORITY, opt);
@@ -346,6 +358,34 @@ public class ContactsDao {
         }
     }
 
+    public static void setContactPhoto(ContentResolver c, byte[] bytes,long personId) {
+        ContentValues values = new ContentValues();
+        int photoRow = -1;
+        String where = ContactsContract.Data.RAW_CONTACT_ID + " = " + personId
+                + " AND " + ContactsContract.Data.MIMETYPE + "=='"
+                + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
+                + "'";
+        Cursor cursor = c.query(ContactsContract.Data.CONTENT_URI, null, where,
+                null, null);
+        int idIdx = cursor.getColumnIndexOrThrow(ContactsContract.Data._ID);
+        if (cursor.moveToFirst()) {
+            photoRow = cursor.getInt(idIdx);
+        }
+        cursor.close();
+
+        values.put(ContactsContract.Data.RAW_CONTACT_ID, personId);
+        values.put(ContactsContract.Data.IS_SUPER_PRIMARY, 1);
+        values.put(ContactsContract.CommonDataKinds.Photo.PHOTO, bytes);
+        values.put(ContactsContract.Data.MIMETYPE,
+                ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
+
+        if (photoRow >= 0) {
+            c.update(ContactsContract.Data.CONTENT_URI, values,
+                    ContactsContract.Data._ID + " = " + photoRow, null);
+        } else {
+            c.insert(ContactsContract.Data.CONTENT_URI, values);
+        }
+    }
     /**
      * 功能：删除联系人
      *
@@ -373,7 +413,7 @@ public class ContactsDao {
      * @author wzq
      * created at 2016/4/19 17:59
      */
-    public  ContactDetailInfo getContactMessage(Context context, String contact_id, String rawContact_id) {
+    public ContactDetailInfo getContactMessage(Context context, String contact_id, String rawContact_id) {
         ContactDetailInfo contactInfo = new ContactDetailInfo();
         ContentResolver contentResolver = context.getContentResolver();
 
@@ -403,7 +443,7 @@ public class ContactsDao {
         }
         cs_data.close();
 
-        Bitmap bitmap = getBitmap(contact_id, context);
+        Bitmap bitmap = getBitmap(contact_id,context);
         contactInfo.setmContact_icon(bitmap);
 
         contactInfo.setmContact_id(contact_id);
@@ -439,7 +479,6 @@ public class ContactsDao {
 
           //  Bitmap bitmap = getBitmap(Integer.valueOf(contact_id), context);
          //   itemInfo.setmContact_icon(bitmap);
-
             //设置亲密度
             Cursor query = mHoneyDegreeDb.query(HONEY_TABLE, new String[]{HA_COLUMN_SCORE}, HA_COLUMN_CONTACTID + "=?",
                     new String[]{contact_id}, null, null, null);
@@ -458,7 +497,6 @@ public class ContactsDao {
         //2：根据rawContactId在data中获取信息
         return contactListInfos;
     }
-
     public String getLastTimeById(Context context, String contact_id) {
         String last_time=null;
         Cursor query = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, new String[]{ContactsContract.Contacts.LAST_TIME_CONTACTED},
@@ -487,20 +525,19 @@ public class ContactsDao {
      * @author wzq
      * created at 2016/4/20 16:47
      */
-    public Bitmap getBitmap(String contactId, Context context) {
+    public Bitmap getBitmap( String contactId, Context context) {
         Bitmap bitmap = null;
 
         String[] strings = {ContactsContract.Contacts.PHOTO_URI};
         Cursor query = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, strings, ContactsContract.Contacts._ID + "=?",
-                new String[]{String.valueOf(contactId)}, null);
+                new String[]{contactId}, null);
         if (query.moveToNext()) {
             String photo_uri = query.getString(0);
-            //  System.out.println(photo_uri+"头像uri+++++"+contactId);
+              System.out.println(photo_uri+"头像uri+++++"+contactId);
             if (photo_uri != null) {
                 AssetFileDescriptor fd = null;
                 try {
                     fd = context.getContentResolver().openAssetFileDescriptor(Uri.parse(photo_uri), "r");
-
                     FileInputStream inputStream = fd.createInputStream();
                     BitmapFactory.Options opt = new BitmapFactory.Options();
                     opt.inSampleSize = 1;

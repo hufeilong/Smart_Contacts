@@ -1,9 +1,12 @@
 package com.lol.contacts.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +28,7 @@ import com.twotoasters.jazzylistview.JazzyListView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CallsRecordActivity extends ActionBarActivity {
+public class CallsRecordActivity extends Activity {
 
     private static final String KEY_TRANSITION_EFFECT = "transition_effect";
 
@@ -77,7 +80,7 @@ public class CallsRecordActivity extends ActionBarActivity {
         //从数据库请求数据
         dao = new ContactsDao(CallsRecordActivity.this);
         infos = (ArrayList<CallRecordInfo>) dao.getCallLogMessage(CallsRecordActivity.this);
-
+        Log.d("通话记录请求数据得到的集合长度：","通话记录请求数据得到的集合长度："+infos.size());
         return infos;
     }
 
@@ -91,7 +94,7 @@ public class CallsRecordActivity extends ActionBarActivity {
         int size = personinfo.size();
         for(int i=0;i<size-1;i++){
             //在通话记录日期变化的地方插入一个特别的通话记录对象，便于ListView加载保定数据时插入分割栏
-            if(personinfo.get(i).getmDate() != personinfo.get(i+1).getmDate()){
+            if(!(personinfo.get(i).getmDate().equals(personinfo.get(i+1).getmDate()))){
                 CallRecordInfo split = new CallRecordInfo("split");
                 split.setmDate(personinfo.get(i + 1).getmDate());
                 //先加当前通话记录，再在后面添加特别对象
@@ -101,6 +104,7 @@ public class CallsRecordActivity extends ActionBarActivity {
                 infos.add(personinfo.get(i));
             }
         }
+
         infos.add(personinfo.get(size-1));
         return infos;
     }
@@ -159,6 +163,236 @@ public class CallsRecordActivity extends ActionBarActivity {
                         imageView_type.setImageResource(R.drawable.type_in_norespond);
                         break;
                     default:break;
+                }
+                switch (position%76) {
+                    case 0:
+                        view.setBackgroundColor(Color.parseColor("#ff0000"));
+                        break;
+                    case 1:
+                        view.setBackgroundColor(Color.parseColor("#ff1100"));
+                        break;
+                    case 2:
+                        view.setBackgroundColor(Color.parseColor("#ff2200"));
+                        break;
+                    case 3:
+                        view.setBackgroundColor(Color.parseColor("#ff3300"));
+                        break;
+                    case 4:
+                        view.setBackgroundColor(Color.parseColor("#ff4400"));
+                        break;
+                    case 5:
+                        view.setBackgroundColor(Color.parseColor("#ff5500"));
+                        break;
+                    case 6:
+                        view.setBackgroundColor(Color.parseColor("#ff6600"));
+                        break;
+                    case 7:
+                        view.setBackgroundColor(Color.parseColor("#ff7700"));
+                        break;
+                    case 8:
+                        view.setBackgroundColor(Color.parseColor("#ff8800"));
+                        break;
+                    case 9:
+                        view.setBackgroundColor(Color.parseColor("#ff9900"));
+                        break;
+                    case 10:
+                        view.setBackgroundColor(Color.parseColor("#ffaa00"));
+                        break;
+                    case 11:
+                        view.setBackgroundColor(Color.parseColor("#ffbb00"));
+                        break;
+                    case 12:
+                        view.setBackgroundColor(Color.parseColor("#ffcc00"));
+                        break;
+                    case 13:
+                        view.setBackgroundColor(Color.parseColor("#ffdd00"));
+                        break;
+                    case 14:
+                        view.setBackgroundColor(Color.parseColor("#ffee00"));
+                        break;
+                    case 15:
+                        view.setBackgroundColor(Color.parseColor("#ffff00"));
+                        break;
+                    case 16:
+                        view.setBackgroundColor(Color.parseColor("#eeff00"));
+                        break;
+                    case 17:
+                        view.setBackgroundColor(Color.parseColor("#ddff00"));
+                        break;
+                    case 18:
+                        view.setBackgroundColor(Color.parseColor("#ccff00"));
+                        break;
+                    case 19:
+                        view.setBackgroundColor(Color.parseColor("#bbff00"));
+                        break;
+                    case 20:
+                        view.setBackgroundColor(Color.parseColor("#aaff00"));
+                        break;
+                    case 21:
+                        view.setBackgroundColor(Color.parseColor("#99ff00"));
+                        break;
+                    case 22:
+                        view.setBackgroundColor(Color.parseColor("#88ff00"));
+                        break;
+                    case 23:
+                        view.setBackgroundColor(Color.parseColor("#77ff00"));
+                        break;
+                    case 24:
+                        view.setBackgroundColor(Color.parseColor("#66ff00"));
+                        break;
+                    case 25:
+                        view.setBackgroundColor(Color.parseColor("#55ff00"));
+                        break;
+                    case 26:
+                        view.setBackgroundColor(Color.parseColor("#44ff00"));
+                        break;
+                    case 27:
+                        view.setBackgroundColor(Color.parseColor("#33ff00"));
+                        break;
+                    case 28:
+                        view.setBackgroundColor(Color.parseColor("#22ff00"));
+                        break;
+                    case 29:
+                        view.setBackgroundColor(Color.parseColor("#11ff00"));
+                        break;
+                    case 30:
+                        view.setBackgroundColor(Color.parseColor("#00ff00"));
+                        break;
+                    case 31:
+                        view.setBackgroundColor(Color.parseColor("#00ff11"));
+                        break;
+                    case 32:
+                        view.setBackgroundColor(Color.parseColor("#00ff22"));
+                        break;
+                    case 33:
+                        view.setBackgroundColor(Color.parseColor("#00ff33"));
+                        break;
+                    case 34:
+                        view.setBackgroundColor(Color.parseColor("#00ff44"));
+                        break;
+                    case 35:
+                        view.setBackgroundColor(Color.parseColor("#00ff55"));
+                        break;
+                    case 36:
+                        view.setBackgroundColor(Color.parseColor("#00ff66"));
+                        break;
+                    case 37:
+                        view.setBackgroundColor(Color.parseColor("#00ff77"));
+                        break;
+                    case 38:
+                        view.setBackgroundColor(Color.parseColor("#00ff88"));
+                        break;
+                    case 39:
+                        view.setBackgroundColor(Color.parseColor("#00ff99"));
+                        break;
+                    case 40:
+                        view.setBackgroundColor(Color.parseColor("#00ffaa"));
+                        break;
+                    case 41:
+                        view.setBackgroundColor(Color.parseColor("#00ffbb"));
+                        break;
+                    case 42:
+                        view.setBackgroundColor(Color.parseColor("#00ffcc"));
+                        break;
+                    case 43:
+                        view.setBackgroundColor(Color.parseColor("#00ffdd"));
+                        break;
+                    case 44:
+                        view.setBackgroundColor(Color.parseColor("#00ffee"));
+                        break;
+                    case 45:
+                        view.setBackgroundColor(Color.parseColor("#00ffff"));
+                        break;
+                    case 46:
+                        view.setBackgroundColor(Color.parseColor("#00eeff"));
+                        break;
+                    case 47:
+                        view.setBackgroundColor(Color.parseColor("#00ddff"));
+                        break;
+                    case 48:
+                        view.setBackgroundColor(Color.parseColor("#00ccff"));
+                        break;
+                    case 49:
+                        view.setBackgroundColor(Color.parseColor("#00bbff"));
+                        break;
+                    case 50:
+                        view.setBackgroundColor(Color.parseColor("#00aaff"));
+                        break;
+                    case 51:
+                        view.setBackgroundColor(Color.parseColor("#0099ff"));
+                        break;
+                    case 52:
+                        view.setBackgroundColor(Color.parseColor("#0088ff"));
+                        break;
+                    case 53:
+                        view.setBackgroundColor(Color.parseColor("#0077ff"));
+                        break;
+                    case 54:
+                        view.setBackgroundColor(Color.parseColor("#0066ff"));
+                        break;
+                    case 55:
+                        view.setBackgroundColor(Color.parseColor("#0055ff"));
+                        break;
+                    case 56:
+                        view.setBackgroundColor(Color.parseColor("#0044ff"));
+                        break;
+                    case 57:
+                        view.setBackgroundColor(Color.parseColor("#0033ff"));
+                        break;
+                    case 58:
+                        view.setBackgroundColor(Color.parseColor("#0022ff"));
+                        break;
+                    case 59:
+                        view.setBackgroundColor(Color.parseColor("#0011ff"));
+                        break;
+                    case 60:
+                        view.setBackgroundColor(Color.parseColor("#0000ff"));
+                        break;
+                    case 61:
+                        view.setBackgroundColor(Color.parseColor("#1100ff"));
+                        break;
+                    case 62:
+                        view.setBackgroundColor(Color.parseColor("#2200ff"));
+                        break;
+                    case 63:
+                        view.setBackgroundColor(Color.parseColor("#3300ff"));
+                        break;
+                    case 64:
+                        view.setBackgroundColor(Color.parseColor("#4400ff"));
+                        break;
+                    case 65:
+                        view.setBackgroundColor(Color.parseColor("#5500ff"));
+                        break;
+                    case 66:
+                        view.setBackgroundColor(Color.parseColor("#6600ff"));
+                        break;
+                    case 67:
+                        view.setBackgroundColor(Color.parseColor("#7700ff"));
+                        break;
+                    case 68:
+                        view.setBackgroundColor(Color.parseColor("#8800ff"));
+                        break;
+                    case 69:
+                        view.setBackgroundColor(Color.parseColor("#9900ff"));
+                        break;
+                    case 70:
+                        view.setBackgroundColor(Color.parseColor("#aa00ff"));
+                        break;
+                    case 71:
+                        view.setBackgroundColor(Color.parseColor("#bb00ff"));
+                        break;
+                    case 72:
+                        view.setBackgroundColor(Color.parseColor("#cc00ff"));
+                        break;
+                    case 73:
+                        view.setBackgroundColor(Color.parseColor("#dd00ff"));
+                        break;
+                    case 74:
+                        view.setBackgroundColor(Color.parseColor("#ee00ff"));
+                        break;
+                    case 75:
+                        view.setBackgroundColor(Color.parseColor("#ff00ff"));
+                        break;
                 }
                 return view;
             }else{

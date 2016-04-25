@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.utils;
+package com.lol.contacts.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

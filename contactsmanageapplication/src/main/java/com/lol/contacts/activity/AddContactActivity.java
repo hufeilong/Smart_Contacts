@@ -57,31 +57,6 @@ public class AddContactActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-        //保存联系人按钮
-        save_contact = (Button) findViewById(R.id.btn_Detailcontact_modify);
-        //取消保存按钮
-        cancel_saveContact = (Button) findViewById(R.id.btn_return_and_finishSelf);
-
-        //联系人信息的EditText
-        et_name1 = (EditText) findViewById(R.id.et_name1    );
-        et_name2 = (EditText) findViewById(R.id.et_name2    );
-        et_phone = (EditText) findViewById(R.id.et_phone    );
-        et_address =(EditText) findViewById(R.id.et_address  );
-        et_loveScore= (EditText) findViewById(R.id.et_loveScore);
-        et_email = (EditText) findViewById(R.id.et_email);
-
-        //得到联系人的信息
-        name1 = et_name1.getText().toString();
-        name2 = et_name2.getText().toString();
-        address = et_address.getText().toString();
-        phone = et_phone.getText().toString();
-        loveScore = et_loveScore.getText().toString();
-        mHoneyDegre = Integer.parseInt(loveScore);
-
-        email = et_email.getText().toString();
-
-
-
         initView();
         initData(savedInstanceState);
     }
@@ -89,9 +64,21 @@ public class AddContactActivity extends Activity {
 
 
     private void initView() {
+        //保存联系人按钮
+        save_contact = (Button) findViewById(R.id.btn_Detailcontact_modify);
+        //取消保存按钮
+        cancel_saveContact = (Button) findViewById(R.id.btn_return_and_finishSelf);
+
+        //获得相应控件对象
+        et_name1 = (EditText) findViewById(R.id.et_name1    );
+        et_name2 = (EditText) findViewById(R.id.et_name2    );
+        et_phone = (EditText) findViewById(R.id.et_phone    );
+        et_address =(EditText) findViewById(R.id.et_address  );
+        et_loveScore= (EditText) findViewById(R.id.et_loveScore);
+        et_email = (EditText) findViewById(R.id.et_email);
 
         iv_head_icon = (ImageView) findViewById(R.id.iv_head_icon);
-
+        iv_head_icon.setImageResource(R.drawable.person_pic);
         iv_head_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,8 +95,7 @@ public class AddContactActivity extends Activity {
                 name2 = et_name2.getText().toString();
                 address = et_address.getText().toString();
                 phone = et_phone.getText().toString();
-                loveScore = et_loveScore.getText().toString();
-                mHoneyDegre = Integer.parseInt(loveScore);
+                mHoneyDegre = Integer.valueOf(et_loveScore.getText().toString());
 
                 email = et_email.getText().toString();
 
@@ -123,11 +109,11 @@ public class AddContactActivity extends Activity {
                 //处理图片
                 contactDetailInfo.setmContact_icon(getBitmapFromUri(picUri));
                 ContactsDao dao = new ContactsDao(AddContactActivity.this);
-                dao.updateContact(AddContactActivity.this, contactDetailInfo);
+                dao.insert(AddContactActivity.this, contactDetailInfo);
                 Toast.makeText(AddContactActivity.this,"保存成功",
                         Toast.LENGTH_SHORT).show();
 
-                //跳转到它的详情页面（没有ID，跳不过去，暂时直接回退到联系人列表）
+                //直接回到列表页，并刷新列表页
                 finish();
             }
         });

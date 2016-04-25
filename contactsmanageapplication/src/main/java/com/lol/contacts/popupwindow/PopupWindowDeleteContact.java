@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.popupwindow;
+package com.lol.contacts.popupwindow;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.lol.contactsmanageapplication.Dao.ContactsDao;
-import com.lol.contactsmanageapplication.R;
+import com.lol.contacts.Dao.ContactsDao;
+import com.lol.contacts.R;
 
 
 /**

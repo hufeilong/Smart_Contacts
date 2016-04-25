@@ -1,4 +1,4 @@
-package com.lol.contactsmanageapplication.clipCircleImage;
+package com.lol.contacts.clipCircleImage;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,9 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.lol.contactsmanageapplication.R;
-import com.lol.contactsmanageapplication.utils.BitmapUtil;
-import com.lol.contactsmanageapplication.utils.CommonUtil;
+import com.lol.contacts.R;
+import com.lol.contacts.utils.BitmapUtil;
+import com.lol.contacts.utils.CommonUtil;
 
 /**
  * 图片裁剪activity
